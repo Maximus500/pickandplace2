@@ -17,8 +17,7 @@ Ce programme utilise ROS2 pour recevoir des images RGB et de profondeur à parti
 Avant d'exécuter ce programme, assurez-vous d'avoir les éléments suivants installés :
 
 - **ROS2** (jazzy)
-- **OpenCV** pour le traitement d'image.
-- **cv_bridge** pour la conversion entre les messages ROS et OpenCV.
+- **OpenCV** pour le traitement d'image
 - **MoveItPy** 
 
 ### Dépendances :
