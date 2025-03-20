@@ -1,40 +1,70 @@
-# Tiago pick and place for Gazebo Harmonic
+# Détection d'Image avec Caméra et Contrôle de Robot ROS2
+# Antoine Bevilacqua et Maxime Paolantoni
 
-This packge is a MoveItPy demonstrator for Tiago simulated in Tiago Harmonic / ROS Jazzy.
+## Description
 
-## Quickstart
+Ce programme utilise ROS2 pour recevoir des images RGB et de profondeur à partir d'une caméra RGBD. Il détecte les objets de couleur rouge dans l'image RGB, calcule leur barycentre (centre de masse), et publie des commandes de mouvement (en vitesse) pour orienter le robot en fonction de la position de ces objets. Il utilise également les informations de profondeur pour obtenir la distance des objets détectés le but est de réaliser des taches de pick and place sur des objets rouge (canettes).
 
-### Tiago Harmonic setup
+### Fonctionnalités principales :
+- Souscription à des topics pour récuperer les images RGBD et de profondeur via ROS2 et OpenCV.
+- Détection d'objets rouges dans l'image RGB.
+- Calcul du barycentre des objets détectés.
+- Utilisation de l'image de profondeur pour mesurer la distance des objets.
+- Publication de commandes de mouvement pour déplacer le robot en fonction des objets détectés sur le topic cmd_vel.
+
+## Prérequis
+
+Avant d'exécuter ce programme, assurez-vous d'avoir les éléments suivants installés :
+
+- **ROS2** (jazzy)
+- **OpenCV** pour le traitement d'image.
+- **cv_bridge** pour la conversion entre les messages ROS et OpenCV.
+- **MoveItPy** 
+
+### Dépendances :
+- ROS2 JAZZY
+- OpenCV
+- cv_bridge
+- MoveItPy (optionnel)
+- Numpy
+
+## Installation
+# Pre-requis:
+### 1. Installer ROS2 (si ce n'est pas déjà fait, version Jazzy de préférence) :
+
+Suivez les instructions d'installation officielles de ROS2 pour votre plateforme sur [ROS2 installation guide](https://index.ros.org/doc/ros2/Installation/).
+
+### 2. Cloner ce dépôt
+
+Clonez ce projet dans votre espace de travail ROS2 :
+
 ```bash
-mkdir -p /home/${USER}/tiago_ws/src
-cd /home/${USER}/tiago_ws/src
-git clone https://github.com/Tiago-Harmonic/tiago_harmonic.git -b ${ROS_DISTRO}
-vcs import . < tiago_harmonic/dependencies.repos
-wget https://raw.githubusercontent.com/ymollard/pal_gripper/6b51bf9fa56864fb03ef06400a580592c31f8794/pal_gripper_description/urdf/gripper.urdf.xacro -O /home/${USER}/tiago_ws/src/pal_gripper/pal_gripper_description/urdf/gripper.urdf.xacro
+git clone https://github.com/Maximus500/pickandplace2
 ```
-
-#### Retrieve tiago_pick_and_place
-
-That's a quick workaround to get only the package from the current repo
-```bash
-git clone https://gitlab.com/f2m2robserv/jazzy-ros-ynov /tmp/jazzy-ros-ynov
-cp -r /tmp/jazzy-ros-ynov/src/tiago_pick_and_place//home/${USER}/tiago_ws/src/
-```
-
-#### Optional: change the world to get a coke can, trash bin, and ARUco code
-```
-rm -rf /home/${USER}/tiago_ws/src/br2_gazebo_worlds/
-git clone https://github.com/ymollard/br2_gazebo_worlds.git  # Replace br2_gazebo_worlds with customized worlds
-cd /home/${USER}/tiago_ws
-sudo apt update && rosdep update && rosdep install --from-paths src --ignore-src -y -r
-source /opt/ros/"${ROS_DISTRO}"/setup.bash; colcon build --symlink-install
-```
-
-#### Now run `pick.py`
+ Pour lancer le noeud : 
 
 ```bash
-ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True world_name:=house_pick_and_place  # or select "house" if you haven't cloned the optional custom br2 worlds
-ros2 launch tiago_pick_and_place plan.launch.py use_sim_time:=True
+ros2 run tiago_pick_and_place depth_image_subscriber
+```
+Si gazebo est installer, pour lancer Tiago dans la scène pick_and_place il faut lancer : 
+
+```bash
+ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True world_name:=pick_and_place
+```
+pour lancer la teleoperation, placez vous dans un autre terminal :  
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/key_vel
+
 ```
 
-Checkout the code in `pick.py` to uncomment the commands you need.
+ pour lancer Rviz et Moveit, dans un autre terminal : 
+```bash
+ros2 launch tiago_moveit_config moveit_rviz.launch.py
+```
+
+## Ne pas oublier de build après chaque modification, et de sourcer le terminal 
+```bash
+cd ~/ros2_ws
+colcon build --symlink-install
+source ~/.bashrc
+```
