@@ -24,7 +24,6 @@ Avant d'exécuter ce programme, assurez-vous d'avoir les éléments suivants ins
 ### Dépendances :
 - ROS2 JAZZY
 - OpenCV
-- cv_bridge
 - MoveItPy (optionnel)
 - Numpy
 
