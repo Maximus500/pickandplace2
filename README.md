@@ -65,7 +65,7 @@ ros2 launch tiago_moveit_config moveit_rviz.launch.py
 ```bash
 cd ~/ros2_ws
 colcon build --symlink-install
-source ~/.bashrc![image](https://github.com/user-attachments/assets/1d5b6bd5-d1bc-4946-891a-31da9a27aa29)
+source ~/.bashrc!
 
 ```
 
