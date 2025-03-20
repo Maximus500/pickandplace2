@@ -1,9 +1,9 @@
-# Détection d'Image avec Caméra et Contrôle de Robot ROS2
+# Détection d'Image avec Caméra et Contrôle du Robot Tiago avec ROS2
 # Antoine Bevilacqua et Maxime Paolantoni
 
 ## Description
 
-Ce programme utilise ROS2 pour recevoir des images RGB et de profondeur à partir d'une caméra RGBD. Il détecte les objets de couleur rouge dans l'image RGB, calcule leur barycentre (centre de masse), et publie des commandes de mouvement (en vitesse) pour orienter le robot en fonction de la position de ces objets. Il utilise également les informations de profondeur pour obtenir la distance des objets détectés le but est de réaliser des taches de pick and place sur des objets rouge (canettes).
+Ce programme utilise ROS2 pour recevoir des images RGB et de profondeur à partir d'une caméra RGBD. Il détecte les objets de couleur rouge dans l'image à partir d'un filtre et de l'image HSV, calcule leur barycentre, et publie des commandes de mouvement (en vitesse) pour orienter le robot en fonction de la position des objets. Il utilise également les informations de profondeur pour obtenir la distance des objets détectés le but est de réaliser des taches de pick and place sur des objets rouge (canettes).
 
 ### Fonctionnalités principales :
 - Souscription à des topics pour récuperer les images RGBD et de profondeur via ROS2 et OpenCV.
