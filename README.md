@@ -31,7 +31,7 @@ Avant d'exécuter ce programme, assurez-vous d'avoir les éléments suivants ins
 # Pre-requis:
 ### 1. Installer ROS2 (si ce n'est pas déjà fait, version Jazzy de préférence) :
 
-Suivez les instructions d'installation officielles de ROS2 pour votre plateforme sur [ROS2 installation guide](https://index.ros.org/doc/ros2/Installation/).
+Suivez les instructions d'installation officielles de ROS2 pour votre plateforme sur [[ROS2 installation guide](https://index.ros.org/doc/ros2/Installation/).](https://docs.ros.org/en/humble/Installation.html)
 
 ### 2. Cloner ce dépôt
 
@@ -65,5 +65,7 @@ ros2 launch tiago_moveit_config moveit_rviz.launch.py
 ```bash
 cd ~/ros2_ws
 colcon build --symlink-install
-source ~/.bashrc
+source ~/.bashrc![image](https://github.com/user-attachments/assets/1d5b6bd5-d1bc-4946-891a-31da9a27aa29)
+
 ```
+
